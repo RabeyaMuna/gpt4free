@@ -1,14 +1,14 @@
-import os
-import json
-import time
 import asyncio
-import uuid
-from typing import Optional, Dict, Union
-from .stubs import IQwenOAuth2Client, ErrorDataDict
-from pathlib import Path
+import json
+import os
 import threading
+import time
+import uuid
+from pathlib import Path
+from typing import Optional
 
 from ..base_provider import AuthFileMixin
+from .stubs import ErrorDataDict, IQwenOAuth2Client
 
 QWEN_DIR = ".qwen"
 QWEN_CREDENTIAL_FILENAME = "oauth_creds.json"
@@ -19,7 +19,7 @@ CACHE_CHECK_INTERVAL_MS = 1000
 
 
 def isErrorResponse(
-    response: Union[Dict, ErrorDataDict]
+    response: dict | ErrorDataDict
 ) -> bool:
     return "error" in response
 
@@ -33,7 +33,7 @@ class TokenError:
 
 
 class TokenManagerError(Exception):
-    def __init__(self, type_: str, message: str, original_error: Optional[Exception] = None):
+    def __init__(self, type_: str, message: str, original_error: Exception | None = None):
         super().__init__(message)
         self.type = type_
         self.original_error = original_error
@@ -107,7 +107,7 @@ class SharedTokenManager(AuthFileMixin):
                 raise
             raise TokenManagerError(TokenError.REFRESH_FAILED, str(e), e)
 
-    def checkAndReloadIfNeeded(self):
+    async def checkAndReloadIfNeeded(self):
         now = int(time.time() * 1000)
         if now - self.memory_cache["last_check"] < CACHE_CHECK_INTERVAL_MS:
             return
@@ -133,7 +133,7 @@ class SharedTokenManager(AuthFileMixin):
                 data = json.load(fs)
                 credentials = self.validateCredentials(data)
                 self.memory_cache["credentials"] = credentials
-        except Exception as e:
+        except Exception:
             self.memory_cache["credentials"] = None
 
     def validateCredentials(self, data):

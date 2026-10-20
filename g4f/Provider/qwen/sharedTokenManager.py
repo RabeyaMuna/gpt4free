@@ -107,7 +107,7 @@ class SharedTokenManager(AuthFileMixin):
                 raise
             raise TokenManagerError(TokenError.REFRESH_FAILED, str(e), e)
 
-    def checkAndReloadIfNeeded(self):
+    async def checkAndReloadIfNeeded(self):
         now = int(time.time() * 1000)
         if now - self.memory_cache["last_check"] < CACHE_CHECK_INTERVAL_MS:
             return

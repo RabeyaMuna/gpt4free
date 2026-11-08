@@ -97,6 +97,7 @@ class PollinationsAI(AsyncGeneratorProvider, ProviderModelMixin):
         "flux-pro": "flux",
         "flux": "flux",
         "flux-kontext": "kontext",
+        "gpt-4o-mini-audio-preview": "openai-audio",
     }
 
     @classmethod

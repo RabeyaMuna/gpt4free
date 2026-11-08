@@ -271,7 +271,7 @@ o4_mini_high = Model(
 gpt_4_1 = Model(
     name          = 'gpt-4.1',
     base_provider = 'OpenAI',
-    best_provider = IterListProvider([PollinationsAI, OpenaiChat])
+    best_provider = OpenaiChat
 )
 
 gpt_4_1_mini = Model(
@@ -296,7 +296,7 @@ gpt_oss_120b = Model(
     name          = 'gpt-oss-120b',
     long_name     = 'openai/gpt-oss-120b',
     base_provider = 'OpenAI',
-    best_provider = IterListProvider([Together, DeepInfra, HuggingFace, OpenRouter, Groq])
+    best_provider = IterListProvider([Together, HuggingFace, OpenRouter, Groq])
 )
 
 # dall-e
@@ -437,7 +437,7 @@ mistral_small_24b = Model(
 mistral_small_3_1_24b = Model(
     name          = "mistral-small-3.1-24b",
     base_provider = "Mistral AI",
-    best_provider = IterListProvider([DeepInfra, PollinationsAI])
+    best_provider = DeepInfra
 )
 
 ### NousResearch ###
@@ -667,7 +667,7 @@ qwen_2_5_72b = Model(
 qwen_2_5_coder_32b = Model(
     name = 'qwen-2.5-coder-32b',
     base_provider = 'Qwen',
-    best_provider = IterListProvider([PollinationsAI, Together, HuggingChat])
+    best_provider = IterListProvider([Together, HuggingChat])
 )
 
 qwen_2_5_1m = Model(
@@ -813,7 +813,7 @@ deepseek_v3_0324_turbo = Model(
 deepseek_r1_0528 = Model(
     name = 'deepseek-r1-0528',
     base_provider = 'DeepSeek',
-    best_provider = IterListProvider([DeepInfra, PollinationsAI])
+    best_provider = DeepInfra
 )
 
 deepseek_r1_0528_turbo = Model(
@@ -851,7 +851,7 @@ grok_3_r1 = Model(
 kimi = Model(
     name = 'kimi-k2',
     base_provider = 'kimi.com',
-    best_provider = IterListProvider([Kimi, HuggingFace, DeepInfra, Groq]),
+    best_provider = IterListProvider([Kimi, Groq]),
     long_name = "moonshotai/Kimi-K2-Instruct"
 )
 
